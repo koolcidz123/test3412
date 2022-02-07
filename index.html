@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/gh/n5ro/aframe-physics-system@v4.0.1/dist/aframe-physics-system.min.js"></script>
+
+    <script src="./components/Rotation.js"></script>
+    <script src="./components/Target.js"></script>
+    <script src="./components/Collider.js"></script>
+    <script src="./components/Game.js"></script>
+  </head>
+
+  <body>
+    <a-scene background="color:#026F90" physics>
+      <a-entity id="look" look-controls camera position="0 2 20"></a-entity>
+
+      <!--Asset Management-->
+      <a-assets timeout="10000">
+        <a-asset-item
+          id="terrainMap"
+          src="./assets/models/terrain/scene.gltf"
+        ></a-asset-item>
+
+        <a-asset-item
+          id="plane"
+          src="./assets/models/airplane/scene.gltf"
+        ></a-asset-item>
+        
+      </a-assets>
+
+      <!-- Terrain  -->
+      <a-entity
+        id="terrain"
+        gltf-model="#terrainMap"
+        position="0 0 -100"
+        scale="0.3 0.3 0.3"
+        animation="property: position; to: 0 0 1000;easing:linear; loop: true; dur: 150000"
+        terrain-rotation-reader
+        target-ring
+        flying-birds
+      >
+      </a-entity>
+
+      <!-- Plane -->
+      <a-entity
+        id="plane_model"
+        gltf-model="#plane"
+        position="0 0 15"
+        scale="1 1 1"
+        rotation="0 90 0"
+        plane-rotation-reader
+        dynamic-body="mass:0"
+        game-play
+      >
+      </a-entity>
+
+      <!-----------------------------------Game Timer and Score------------------------------------------>
+     <a-entity >
+        <a-entity
+        text="value:Virtual Flight; width:20; height:30" position="5 5 10"></a-entity>
+
+        <a-entity
+        text="value:Timer-; width:10; height:15" position="2 3.5 13"></a-entity>
+
+        <a-entity id="timer" text="value:00:00; width:10 height:10" position="3.9 3.5 13"></a-entity>
+
+        <a-entity
+        text="value:Score; width:10; height:15" position="7 3.5 13"></a-entity>
+
+        <a-entity id="score" text="value:0; width:10 height:10" position="9 3.5 13"></a-entity>
+
+        <a-entity id="over"
+        text="value:Game OVER; width:20; height:25; " position="5 0 0" visible=false ></a-entity>
+     </a-entity>
+
+      
+    </a-scene>
+  </body>
+</html>
